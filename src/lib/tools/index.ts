@@ -1,3 +1,3 @@
-export { viewClosetTool } from "./closet";
-export { askFriendTool } from "./friend";
-export { checkWeatherTool } from "./weather";
+export { viewProductCatalogTool } from "./product-catalog";
+export { askSalesManagerTool } from "./sales-manager";
+export { lookupCompanyTool } from "./company-lookup";

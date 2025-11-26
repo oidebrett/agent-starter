@@ -1,18 +1,54 @@
-# AI Agent Starter
+# AI Sales Agent Starter
+
+An intelligent B2B sales assistant that generates personalized product recommendations using AI agents, HubSpot integration via Nango, and company intelligence.
+
+## Features
+
+- 🤖 **AI-Powered Product Recommendations**: Generates tailored product bundles based on prospect data
+- 📧 **HubSpot Integration**: Retrieves prospect email via Nango's HubSpot connector
+- 🏢 **Company Intelligence**: Automatically researches company industry, size, and pain points from email domain
+- 💼 **Sales Manager AI**: Provides strategic sales advice and approach recommendations
+- 📦 **Product Catalog**: Comprehensive catalog of software, hardware, services, consulting, and training offerings
+- 💰 **Deal Metrics**: Estimates deal value and implementation timeline
+
+## How It Works
+
+1. **User Authentication**: Connects to HubSpot via Nango to retrieve the prospect's email
+2. **Company Lookup**: Analyzes the email domain to infer company industry, size, tech stack, and pain points
+3. **AI Agent Workflow**: Uses multiple tools (product catalog, sales manager, company lookup) to generate recommendations
+4. **Product Pitch**: Delivers a complete solution bundle with software, hardware, services, and consulting recommendations
 
 ## Getting Started
 
-### Development mode
+### Prerequisites
+
+- Node.js 18+ and pnpm
+- OpenAI API key
+- Nango account with HubSpot integration configured
+
+### Environment Setup
+
+Copy `.env.local.example` to `.env.local` and configure:
+
+```bash
+# AI Provider
+AI_PROVIDER=openai
+OPENAI_API_KEY=your-openai-api-key
+
+# Nango Integration
+NANGO_SECRET_KEY=your-nango-secret-key
+```
+
+### Development Mode
+
 ```bash
 pnpm install
 pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the AI Sales Agent in action.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-### Production mode
+### Production Mode
 
 ```bash
 pnpm install
@@ -20,14 +56,28 @@ pnpm run build
 pnpm run start
 ```
 
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)!
+## Architecture
 
+- **Frontend**: Next.js 15 with React Server Components
+- **AI Framework**: Vercel AI SDK with tool calling
+- **Workflows**: Vercel Workflow Engine for multi-step agent orchestration
+- **Integration**: Nango for HubSpot authentication and data retrieval
+- **Styling**: Tailwind CSS with glassmorphism design
+
+## Tools & Agents
+
+### Product Catalog Tool
+Views available products across software, hardware, services, consulting, and training categories.
+
+### Sales Manager Tool
+Provides strategic sales advice on approach, positioning, and deal strategy.
+
+### Company Lookup Tool
+Researches prospect companies based on email domain to understand industry, size, and needs.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) — learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) — an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) — your feedback and contributions are welcome!
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) — AI framework with tool calling
+- [Vercel Workflows](https://vercel.com/docs/workflow) — Multi-step agent orchestration
+- [Nango](https://www.nango.dev/) — Integration platform for HubSpot and other APIs
+- [Next.js Documentation](https://nextjs.org/docs) — Next.js features and API
