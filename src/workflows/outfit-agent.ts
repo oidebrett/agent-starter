@@ -1,8 +1,11 @@
 import type { Geo } from "@vercel/functions";
-import { Output, ToolLoopAgent } from "ai";
+import { Output, ToolLoopAgent, tool } from "ai";
+import { z } from "zod";
 
+import { openai } from "@/lib/ai-provider";
 import { outfitSchema } from "@/lib/outfit";
-import { askFriendTool, checkWeatherTool, viewClosetTool } from "@/lib/tools";
+import { askFriendTool, viewClosetTool } from "@/lib/tools";
+import { formatWeatherDisplay, getWeatherData } from "@/lib/weather";
 
 export async function outfitAgentWorkflow(geo: Geo) {
   "use workflow";
@@ -13,10 +16,25 @@ export async function outfitAgentWorkflow(geo: Geo) {
 async function agentStep(geo: Geo) {
   "use step";
 
+  // Use provided coordinates or fallback to San Francisco
+  const latitude = geo.latitude || "37.7749";
+  const longitude = geo.longitude || "-122.4194";
+  const city = geo.city || "San Francisco";
+
+  // Create a weather tool with the coordinates baked in
+  const checkWeatherForLocation = tool({
+    description: `Check the current weather conditions for ${city}`,
+    inputSchema: z.object({}),
+    execute: async () => {
+      const weather = await getWeatherData(latitude, longitude);
+      return formatWeatherDisplay(weather);
+    },
+  });
+
   const agent = new ToolLoopAgent({
-    model: "openai/gpt-5-nano",
+    model: openai("gpt-4o-mini"),
     tools: {
-      checkWeather: checkWeatherTool,
+      checkWeather: checkWeatherForLocation,
       viewCloset: viewClosetTool,
       askFriend: askFriendTool,
     },
@@ -26,7 +44,7 @@ async function agentStep(geo: Geo) {
     instructions: `You are a fashion advisor AI agent. Your job is to recommend complete outfits based on the location, weather, and available clothing items.
 
 Guidelines:
-1. Always check the weather first for the given location
+1. Always check the weather first using the checkWeather tool (no parameters needed)
 2. Look at what's available in the closet
 3. You may ask a friend for advice if needed
 4. Provide a complete outfit recommendation with specific items for each category
@@ -35,13 +53,11 @@ Guidelines:
 
 Be practical, stylish, and considerate of weather conditions.
 
-If you don't know the weather, then use your best judgment.
-
 Provide a detailed recommendation with specific clothing items and explain your reasoning.`,
   });
 
   const { output } = await agent.generate({
-    prompt: `I need an outfit recommendation for today in ${geo.city} located at: ${geo.latitude}.${geo.longitude}. Please help me choose what to wear by gathering the necessary information and providing structured results.`,
+    prompt: `I need an outfit recommendation for today in ${city}. Please check the weather first, then provide an outfit recommendation based on the weather and available clothing.`,
   });
 
   return output;
