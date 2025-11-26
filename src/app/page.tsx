@@ -1,18 +1,17 @@
-import { OutfitDisplay } from "@/components/outfit-display";
-import { NangoDisplay } from "@/components/nango-display";
+import { ProductDisplay } from "@/components/product-display";
 import { ToolsSection } from "@/components/tools-section";
 
-export default function OutfitPage() {
+export default function ProductRecommendationPage() {
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-6xl px-6 py-20">
         {/* Header */}
         <div className="mb-16 text-center">
           <h1 className="mb-4 font-bold font-mono text-5xl tracking-tight">
-            Agent Starter
+            AI Sales Agent
           </h1>
           <p className="text-gray-400 text-lg">
-            Example AI Agent to generate outfit recommendations tailored for you
+            Intelligent product recommendations powered by AI and real-time prospect data
           </p>
           <a
             href="https://github.com/oidebrett/agent-starter"
@@ -36,8 +35,7 @@ export default function OutfitPage() {
           </a>
         </div>
 
-        <OutfitDisplay />
-        <NangoDisplay />
+        <ProductDisplay />
         <ToolsSection />
       </div>
     </main>
