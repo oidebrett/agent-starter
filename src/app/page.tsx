@@ -1,4 +1,5 @@
 import { OutfitDisplay } from "@/components/outfit-display";
+import { NangoDisplay } from "@/components/nango-display";
 import { ToolsSection } from "@/components/tools-section";
 
 export default function OutfitPage() {
@@ -36,6 +37,7 @@ export default function OutfitPage() {
         </div>
 
         <OutfitDisplay />
+        <NangoDisplay />
         <ToolsSection />
       </div>
     </main>
