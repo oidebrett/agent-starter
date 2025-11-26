@@ -14,7 +14,7 @@ export default function OutfitPage() {
             Example AI Agent to generate outfit recommendations tailored for you
           </p>
           <a
-            href="https://github.com/willsather/agent-starter"
+            href="https://github.com/oidebrett/agent-starter"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-flex items-center gap-2 text-gray-500 text-sm transition-colors hover:text-gray-300"
