@@ -7,6 +7,7 @@ An intelligent B2B sales assistant that generates personalized product recommend
 - 🤖 **AI-Powered Product Recommendations**: Generates tailored product bundles based on prospect data
 - 📧 **HubSpot Integration**: Retrieves prospect email via Nango's HubSpot connector
 - 🏢 **Company Intelligence**: Automatically researches company industry, size, and pain points from email domain
+- 🔍 **Real-Time Web Search (MCP)**: Optional integration with NLWeb search via Model Context Protocol for enhanced company research
 - 💼 **Sales Manager AI**: Provides strategic sales advice and approach recommendations
 - 📦 **Product Catalog**: Comprehensive catalog of software, hardware, services, consulting, and training offerings
 - 💰 **Deal Metrics**: Estimates deal value and implementation timeline
@@ -37,6 +38,9 @@ OPENAI_API_KEY=your-openai-api-key
 
 # Nango Integration
 NANGO_SECRET_KEY=your-nango-secret-key
+
+# Optional: MCP Web Search Integration
+MCP_BEARER_TOKEN=your-mcp-bearer-token
 ```
 
 ### Development Mode
@@ -74,6 +78,21 @@ Provides strategic sales advice on approach, positioning, and deal strategy.
 
 ### Company Lookup Tool
 Researches prospect companies based on email domain to understand industry, size, and needs.
+
+### Web Search Tool (MCP - Optional)
+When configured with `MCP_BEARER_TOKEN`, the agent gains access to real-time web search capabilities via the Model Context Protocol (MCP). This allows the AI agent to:
+- Search for current company information and news
+- Discover recent industry trends and developments
+- Find additional context about prospects beyond basic domain inference
+- Validate assumptions with real-time data
+
+The MCP integration is **optional** - the workflow will continue to function with basic company lookup if MCP is not configured. When available, the AI agent can strategically decide when to use web search for enhanced research.
+
+**How it works:**
+1. The workflow creates an MCP client connection to the NLWeb search server
+2. Web search tools are dynamically added to the agent's tool collection
+3. The AI agent can use these tools alongside existing tools (product catalog, sales manager, etc.)
+4. The MCP connection is automatically closed after the recommendation is generated
 
 ## Learn More
 
