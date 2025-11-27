@@ -17,6 +17,9 @@ importers:
       '@nangohq/node':
         specifier: ^0.69.14
         version: 0.69.14
+      '@openrouter/ai-sdk-provider':
+        specifier: ^1.2.7
+        version: 1.2.7(ai@6.0.0-beta.92(zod@4.1.12))(zod@4.1.12)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -870,6 +873,16 @@ packages:
   '@oclif/plugin-help@6.2.34':
     resolution: {integrity: sha512-RvcDSp1PcXFuPJx8IvkI1sQKAPp7TuR+4QVg+uS+Dv3xG6QSqGW5IMNBdvfmB2NLrvSeIiDHadLv/bz9n4iQWQ==}
     engines: {node: '>=18.0.0'}
+
+  '@openrouter/ai-sdk-provider@1.2.7':
+    resolution: {integrity: sha512-Ra9/93QJ7nKheFlB9ZbiTgpDYeEUA7AuOLqjUIzidKVcVWm4wbHmOOBU5y4rIUgQ1wQNfwRsBPDtGyVMTPeyBg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      ai: ^5.0.0
+      zod: ^3.24.1 || ^v4
+
+  '@openrouter/sdk@0.1.27':
+    resolution: {integrity: sha512-RH//L10bSmc81q25zAZudiI4kNkLgxF2E+WU42vghp3N6TEvZ6F0jK7uT3tOxkEn91gzmMw9YVmDENy7SJsajQ==}
 
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
@@ -5009,6 +5022,16 @@ snapshots:
   '@oclif/plugin-help@6.2.34':
     dependencies:
       '@oclif/core': 4.8.0
+
+  '@openrouter/ai-sdk-provider@1.2.7(ai@6.0.0-beta.92(zod@4.1.12))(zod@4.1.12)':
+    dependencies:
+      '@openrouter/sdk': 0.1.27
+      ai: 6.0.0-beta.92(zod@4.1.12)
+      zod: 4.1.12
+
+  '@openrouter/sdk@0.1.27':
+    dependencies:
+      zod: 4.1.12
 
   '@opentelemetry/api@1.9.0': {}
 

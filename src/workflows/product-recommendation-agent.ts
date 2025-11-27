@@ -2,7 +2,7 @@ import { Output, ToolLoopAgent, tool } from "ai";
 import { z } from "zod";
 import { Nango } from "@nangohq/node";
 
-import { openai } from "@/lib/ai-provider";
+import { getModel } from "@/lib/ai-provider";
 import { productRecommendationSchema } from "@/lib/product-recommendation";
 import {
     askSalesManagerTool,
@@ -112,7 +112,8 @@ async function generateRecommendationStep(email: string) {
     const companyLookup = lookupCompanyTool(email);
 
     const agent = new ToolLoopAgent({
-        model: openai("gpt-4o"),
+        model: getModel("gpt-4o"),
+//        model: getModel("moonshotai/kimi-k2:free"),
         tools: {
             lookupCompany: companyLookup,
             viewProductCatalog: viewProductCatalogTool,

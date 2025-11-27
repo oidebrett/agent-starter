@@ -3,7 +3,7 @@ import { tool } from "ai";
 import { z } from "zod";
 import { Nango } from "@nangohq/node";
 
-import { openai } from "@/lib/ai-provider";
+import { getModel } from "@/lib/ai-provider";
 
 const nango = new Nango({ secretKey: process.env.NANGO_SECRET_KEY! });
 
@@ -42,7 +42,8 @@ export async function runNangoAgent(userId: string, integrationId: string) {
   // Step 3: Run the agent with tools
   console.log("🤖 Nango Agent running...");
   const agent = new ToolLoopAgent({
-    model: openai("gpt-4o"),
+//    model: getModel("moonshotai/kimi-k2:free"),
+    model: getModel("gpt-4o"),
     tools: {
       who_am_i: createWhoAmITool(integrationId, connectionId),
     },

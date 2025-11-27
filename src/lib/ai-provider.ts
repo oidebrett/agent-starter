@@ -1,17 +1,17 @@
 import { createOpenAI } from "@ai-sdk/openai";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 
 const provider = process.env.AI_PROVIDER || "openai";
 
 console.log(`🔧 Using AI provider: ${provider}`);
 
-const getProviderConfig = () => {
-  if (provider === "openrouter") {
-    return {
-      apiKey: process.env.OPENROUTER_API_KEY!,
-      baseURL: "https://openrouter.ai/api/v1",
-    };
-  }
+// Create the OpenRouter provider instance
+const openrouterProvider = createOpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY!,
+});
 
+// Create the OpenAI provider instance (for direct OpenAI or Vercel AI Gateway)
+const getOpenAIConfig = () => {
   if (provider === "openai") {
     return {
       apiKey: process.env.OPENAI_API_KEY!,
@@ -26,4 +26,26 @@ const getProviderConfig = () => {
   };
 };
 
-export const openai = createOpenAI(getProviderConfig());
+const openaiProvider = createOpenAI(getOpenAIConfig());
+
+/**
+ * Helper to get a model with the correct naming for the current provider.
+ * Uses the official OpenRouter provider when AI_PROVIDER=openrouter.
+ */
+export const getModel = (modelName: string) => {
+  if (provider === "openrouter") {
+    // Only auto-prefix OpenAI models, nothing else
+    const needsPrefix = !modelName.includes("/") && modelName.startsWith("gpt");
+
+    const fullModelName = needsPrefix
+      ? `openai/${modelName}`
+      : modelName;
+
+    return openrouterProvider.chat(fullModelName);
+  }
+
+  return openaiProvider(modelName);
+};
+
+// For backwards compatibility, export the raw provider too
+export const openai = openaiProvider;
